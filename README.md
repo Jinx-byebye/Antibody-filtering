@@ -148,9 +148,8 @@ python scripts/reproduce_tables.py \
   --reference reference --output results
 ```
 
-Outputs are available as **CSV**, **Markdown**, and **LaTeX**. Reference checks
-compare every displayed value, including average ranks, without changing the
-computed results. See the [evaluation guide](docs/evaluation.md) for utility,
+Outputs are available as **CSV**, **Markdown**, and **LaTeX**.
+See the [evaluation guide](docs/evaluation.md) for utility,
 thresholds, fixed budgets, target weighting, and ties.
 
 ## Datasets
