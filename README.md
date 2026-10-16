@@ -38,6 +38,10 @@ an arXiv link will be added when the record becomes available.
 | **Interface evidence** is strongest in our benchmark comparisons. | **Antibody-level confidence**, especially outside the CDRs, is more informative. |
 | **RIC** measures support for predicted CDR contacts across prediction runs. | **NAC** summarizes non-CDR antibody pLDDT. |
 
+**NAC remains CDR- and antigen-conditioned.** Its pLDDT values come from
+cofolding the complete antibody, including all CDRs, with the antigen. CDR
+residues are excluded only from the confidence average used to calculate NAC.
+
 ### Table 2: Interface evidence leads in across-antigen filtering
 
 Global filtering on the full benchmark of 4,184 candidates; 275 ESMFold2
@@ -222,5 +226,4 @@ performed and their scope.
 ```
 
 Predictor software, weights, databases, and third-party methods retain their
-respective licenses and attribution requirements. Dataset licensing information
-will accompany the data release.
+respective licenses and attribution requirements.
