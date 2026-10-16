@@ -38,9 +38,6 @@ an arXiv link will be added when the record becomes available.
 | **Interface evidence** is strongest in our benchmark comparisons. | **Antibody-level confidence**, especially outside the CDRs, is more informative. |
 | **RIC** measures support for predicted CDR contacts across prediction runs. | **NAC** summarizes non-CDR antibody pLDDT. |
 
-These are empirical observations, not a rule assigning a score to a setting.
-The evaluation compares the same metrics in both settings.
-
 ### Predictions contain useful, but incomplete, binding information
 
 <a href="paper/antibody-filtering.pdf">
