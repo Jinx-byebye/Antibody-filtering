@@ -16,8 +16,6 @@
 [From sequences](#from-sequences-to-scores) &nbsp; / &nbsp;
 [Citation](#citation)
 
-Langzhang Liang · Juncheng Qian · Xiaojie Ma · Mingxi Zou · Yinghui Xu · Zenglin Xu · Tianlei Ying
-
 </div>
 
 ---
