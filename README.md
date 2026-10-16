@@ -38,7 +38,65 @@ an arXiv link will be added when the record becomes available.
 | **Interface evidence** is strongest in our benchmark comparisons. | **Antibody-level confidence**, especially outside the CDRs, is more informative. |
 | **RIC** measures support for predicted CDR contacts across prediction runs. | **NAC** summarizes non-CDR antibody pLDDT. |
 
-### Predictions contain useful, but incomplete, binding information
+### Table 2: Interface evidence leads in across-antigen filtering
+
+Global filtering on the full benchmark of 4,184 candidates; 275 ESMFold2
+out-of-memory complexes are excluded. Recall and precision are percentages.
+
+<a href="paper/antibody-filtering.pdf">
+  <img src="assets/across-antigen-results.png" alt="Table 2: full across-antigen filtering results for AlphaFold 3, Protenix-v2, and ESMFold2, including recall, utility, precision, and average rank" width="100%">
+</a>
+
+With one threshold shared across antigens, **RIC has the best average rank** for
+AlphaFold 3 (1.50) and Protenix-v2 (1.00), with large gains in low-FPR recall and
+utility. Its geometric-contact approximation, **gRIC**, also ranks first for
+ESMFold2 (1.25), whereas NAC ranks near the bottom (10.12).
+
+### Table 3: Antibody reliability is strongest within an antigen
+
+Campaign-specific evaluation of 2,400 candidates across 13 display-based and
+IgDesign antigens; 107 ESMFold2 out-of-memory complexes are excluded.
+
+<a href="paper/antibody-filtering.pdf">
+  <img src="assets/within-antigen-results.png" alt="Table 3: full within-antigen filtering results for AlphaFold 3, Protenix-v2, and ESMFold2 across 13 display-based and IgDesign antigens" width="100%">
+</a>
+
+**The ordering reverses when candidates compete within the same antigen.** NAC
+ranks first for AlphaFold 3 and ESMFold2 (1.38 for both) and remains among the
+strongest scores for Protenix-v2 (2.12). RIC falls to average ranks of 10.25 and
+13.00 for AlphaFold 3 and Protenix-v2, and gRIC ranks 10.62 for ESMFold2.
+
+**Confidence outside the CDRs is more informative than whole-antibody confidence.**
+NAC outperforms antibody pLDDT in 23 of 24 predictor-measure comparisons: all eight
+for AlphaFold 3 and ESMFold2, and seven of eight for Protenix-v2.
+
+**Within-antigen filtering offers greater fixed-budget gains.** Testing the top
+20% of candidates with NAC recovers 35.82%, 36.21%, and 39.22% of binders with
+AlphaFold 3, Protenix-v2, and ESMFold2, respectively. Most scores in Table 2 fall
+below the roughly 20% recall expected from random selection at the same budget.
+
+**Predictor comparisons depend on the evaluation context.** Among ten shared
+baselines, AlphaFold 3 leads in 54 of 80 baseline-measure comparisons across
+antigens, while Protenix-v2 leads in 77 of 80 within-antigen comparisons.
+
+### Table 7: Why can confidence outside the CDRs be more informative?
+
+<a href="paper/antibody-filtering.pdf">
+  <img src="assets/regional-confidence.png" alt="Table 7: within-antigen AUC for interface, CDR, non-CDR, and whole-antibody pLDDT across three predictors and two benchmarks" width="100%">
+</a>
+
+**Table 7.** Non-CDR pLDDT has the highest mean within-antigen AUC in all six
+predictor-benchmark comparisons. In five of the six, AUC decreases from non-CDR
+to whole-antibody, CDR, and interface pLDDT. This ordering fits the proposed
+trade-off: CDRs and interface contacts matter most directly to binding, but their
+conformational variability and docking uncertainty make them harder to predict
+accurately.
+
+**Our observation.** For within-antigen filtering, confidence in the less directly
+involved but more reliably modeled non-CDR region provides a stronger signal than
+confidence in the harder-to-predict CDRs or predicted interface.
+
+### Figure 1: Predictions contain useful, but incomplete, binding information
 
 <a href="paper/antibody-filtering.pdf">
   <img src="assets/binding-information.png" alt="Figure 1: coordinate and confidence projections, within-target separability, and overlapping binder and non-binder contact profiles" width="100%">
@@ -49,17 +107,6 @@ separability in the AlphaFold 3 analysis, while predicted contact regions can
 overlap substantially between binders and non-binders. Better scores can extract
 more information from predictions, but cannot recover distinctions the predictor
 does not capture.
-
-### Confidence outside the CDRs can be a stronger filtering signal
-
-<a href="paper/antibody-filtering.pdf">
-  <img src="assets/regional-confidence.png" alt="Table 7: within-antigen AUC for interface, CDR, non-CDR, and whole-antibody pLDDT across three predictors and two benchmarks" width="100%">
-</a>
-
-**Table 7.** Non-CDR pLDDT has the highest mean within-antigen AUC in all six
-predictor-benchmark comparisons. This supports a trade-off between direct
-relevance to binding and prediction reliability: a region less directly involved
-in binding can still provide a stronger filtering signal.
 
 <details>
 <summary><strong>How much does ensemble size matter?</strong></summary>

@@ -14,6 +14,7 @@ def main():
     args.output.mkdir(parents=True, exist_ok=True)
     # Coordinates refer to the included 27-page manuscript, in PDF points.
     panels = [
+        ('within-antigen-results.png', 8, (70, 288, 525, 743), 'Campaign-specific evaluation of 2,400 candidates'),
         ('binding-information.png', 9, (78, 65, 520, 289), 'Binding information in AlphaFold'),
         ('regional-confidence.png', 16, (106, 156, 488, 275), 'Within-antigen binder separability of regional'),
         ('ensemble-size.png', 17, (93, 180, 505, 455), 'Fixed-budget recall with smaller'),
@@ -24,6 +25,19 @@ def main():
             if expected not in source.get_text():
                 raise ValueError(f'Page {page} no longer matches the panel; review crop coordinates')
             source.get_pixmap(matrix=pymupdf.Matrix(3, 3), clip=pymupdf.Rect(bounds), alpha=False).save(args.output / name)
+        # Join the two printed parts of Table 2, keeping one column header.
+        parts = [(6, (70, 566, 525, 763)), (7, (70, 110, 525, 376))]
+        if 'Table 2.' not in doc[5].get_text() or 'Table 2 continued' not in doc[6].get_text():
+            raise ValueError('Table 2 pagination changed; review crop coordinates')
+        with pymupdf.open() as joined:
+            page = joined.new_page(width=455, height=sum(b[3] - b[1] for _, b in parts))
+            offset = 0
+            for number, bounds in parts:
+                clip = pymupdf.Rect(bounds)
+                page.show_pdf_page(pymupdf.Rect(0, offset, clip.width, offset + clip.height),
+                                   doc, number - 1, clip=clip)
+                offset += clip.height
+            page.get_pixmap(matrix=pymupdf.Matrix(3, 3), alpha=False).save(args.output / 'across-antigen-results.png')
 
 
 if __name__ == '__main__':

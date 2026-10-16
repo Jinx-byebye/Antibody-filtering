@@ -5,6 +5,8 @@ These images are rendered directly from the manuscript in
 
 | File | Source |
 | --- | --- |
+| `across-antigen-results.png` | Table 2, pages 6-7, joined into one table with a single column header |
+| `within-antigen-results.png` | Table 3, page 8 |
 | `binding-information.png` | Figure 1, page 9 |
 | `regional-confidence.png` | Table 7, page 16 |
 | `ensemble-size.png` | Figure 2, page 17 |
