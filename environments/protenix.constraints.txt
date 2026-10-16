@@ -1,0 +1,5 @@
+# Core versions from the Protenix-v2 installation, not the separate v1 environment.
+numpy==2.4.1
+biotite==1.4.0
+protenix==2.0.0
+torch==2.7.1

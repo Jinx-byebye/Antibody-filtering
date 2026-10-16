@@ -1,0 +1,10 @@
+{
+  "predictor": "alphafold3",
+  "model_name": "AlphaFold 3",
+  "seeds": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
+  "samples": 5,
+  "templates": false,
+  "flash_attention_implementation": "xla",
+  "paper_software_revision": null,
+  "paper_weights_sha256": null
+}

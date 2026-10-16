@@ -1,0 +1,11 @@
+{
+  "predictor": "protenix",
+  "purpose": "Installation smoke test; not a paper reproduction",
+  "model_name": "protenix-v2",
+  "seeds": [101, 102],
+  "samples": 1,
+  "templates": false,
+  "cycles": 10,
+  "diffusion_steps": 200,
+  "dtype": "bf16"
+}

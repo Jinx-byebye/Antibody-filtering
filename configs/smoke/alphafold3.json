@@ -1,0 +1,9 @@
+{
+  "predictor": "alphafold3",
+  "purpose": "Installation smoke test; not a paper reproduction",
+  "model_name": "AlphaFold 3",
+  "seeds": [101, 102],
+  "samples": 1,
+  "templates": false,
+  "flash_attention_implementation": "xla"
+}

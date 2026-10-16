@@ -135,6 +135,8 @@ def read_sample(path: Path, candidate: Candidate) -> Sample:
         raise ValueError(f"non-finite native confidence: {path}")
     antibody = np.flatnonzero(np.isin(chains, list(candidate.antibody_sequences)))
     antigen = np.flatnonzero(np.isin(chains, list(candidate.antigen_sequences)))
+    if len(antibody) + len(antigen) != n:
+        raise ValueError(f'undeclared chains in prediction: {path}')
     if len(antibody) != len(candidate.cdr_mask) or not len(antigen):
         raise ValueError(f"chain roles or antibody annotation do not match: {path}")
     for role, sequences in ((antibody, candidate.antibody_sequences), (antigen, candidate.antigen_sequences)):

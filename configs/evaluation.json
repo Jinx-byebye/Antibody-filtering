@@ -1,0 +1,24 @@
+{
+  "f_safe": 0.1,
+  "f_severe": 0.3,
+  "minimum_positive": 10,
+  "minimum_negative": 40,
+  "within_antigen_datasets": ["display_enrichment", "igdesign_spr"],
+  "dataset_weights": {"display_enrichment": 0.5, "igdesign_spr": 0.5},
+  "score_directions": {
+    "pair_iptm": 1, "pair_gpde": -1, "interface_pae": -1,
+    "antibody_plddt": 1, "ranking_score": 1, "pdockq": 1, "pdockq2": 1,
+    "ipsae_d0res": 1, "ipsae_d0dom": 1, "ipsae_d0chn": 1,
+    "anticonf": 1, "ric": 1, "gric": 1, "nac": 1
+  },
+  "predictor_metrics": {
+    "alphafold3": ["pair_iptm", "interface_pae", "antibody_plddt", "ranking_score", "pdockq", "pdockq2", "ipsae_d0res", "ipsae_d0dom", "ipsae_d0chn", "anticonf", "ric", "nac"],
+    "protenix": ["pair_iptm", "pair_gpde", "interface_pae", "antibody_plddt", "ranking_score", "pdockq", "pdockq2", "ipsae_d0res", "ipsae_d0dom", "ipsae_d0chn", "anticonf", "ric", "nac"],
+    "esmfold2": ["pair_iptm", "interface_pae", "antibody_plddt", "pdockq", "pdockq2", "ipsae_d0res", "ipsae_d0dom", "ipsae_d0chn", "anticonf", "gric", "nac"]
+  },
+  "endpoints": {
+    "table2": ["recall_fpr_10", "recall_fpr_20", "recall_fpr_30", "recall_q_05", "recall_q_20", "utility", "recall_at_utility", "precision_at_utility"],
+    "table3": ["recall_fpr_10", "recall_fpr_20", "recall_fpr_30", "recall_q_05", "recall_q_20", "utility", "recall_at_utility", "precision_at_utility"],
+    "table4": ["recall_fpr_10", "recall_fpr_20", "recall_fpr_30", "recall_q_05", "recall_q_20", "utility", "precision_at_utility"]
+  }
+}

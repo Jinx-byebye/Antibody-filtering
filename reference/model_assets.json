@@ -1,0 +1,56 @@
+{
+  "inspection_date": "2026-10-16",
+  "scope": "Files in the installations referenced by the inference launchers. These checksums identify inspected assets; they do not establish the assets used for every historical prediction.",
+  "predictors": {
+    "alphafold3": {
+      "af3.bin": {
+        "bytes": 1146811260,
+        "sha256": "1d81b3600a5a0d12bb0b07ad18958c4283c8bf5062e4100034afdc098a15f655"
+      }
+    },
+    "protenix": {
+      "protenix-v2.pt": {
+        "bytes": 1859785497,
+        "sha256": "8f931f9774a396b67033d0e58628e1834f4a1448165e04254b40a780b0c0d599"
+      }
+    },
+    "esmfold2": {
+      "ESMFold2/model.safetensors": {
+        "bytes": 939505228,
+        "sha256": "138fd4350d6892b81ce6be7ff9bf5a93ae9d4d3751f46a27438a3f9f0dcefa0e"
+      },
+      "ESMFold2/config.json": {
+        "bytes": 2337,
+        "sha256": "e9ec2496ec433a1dce18627ed4bf3785b4ce0c1d69e4bb4663dad1ab895da012"
+      },
+      "ESMFold2/ccd.pkl": {
+        "bytes": 417306584,
+        "sha256": "9ff44b1927c6b9198e38ffe0928706827a09a350c15530beeeabebfa88038fc5"
+      },
+      "ESMC-6B/model-00001-of-00006.safetensors": {
+        "bytes": 4864457920,
+        "sha256": "bd90149ff223e6ac1a0cac6147a5ae0df20d3a21df4f65356a1f19cd14f4aa8a"
+      },
+      "ESMC-6B/model-00002-of-00006.safetensors": {
+        "bytes": 4971211344,
+        "sha256": "f75e2144d8269fe2eb4b3e0823fb089b94f176d8024153e85b8fb573a42294fa"
+      },
+      "ESMC-6B/model-00003-of-00006.safetensors": {
+        "bytes": 4863752992,
+        "sha256": "f699f01ecc9691d9c6470492765fe54b8b5d2e9f277c139e89427433ffdfe0b2"
+      },
+      "ESMC-6B/model-00004-of-00006.safetensors": {
+        "bytes": 4971211344,
+        "sha256": "46add1b7be098bbfdc3073884851ba3057f1b33ea23a158b650a37007dabd13d"
+      },
+      "ESMC-6B/model-00005-of-00006.safetensors": {
+        "bytes": 4863752992,
+        "sha256": "1e1cb62f060a34e18f54a31a76683ef888b8cec59e73315f5b31d25d45a1f88c"
+      },
+      "ESMC-6B/model-00006-of-00006.safetensors": {
+        "bytes": 873762296,
+        "sha256": "56c73e13ae96e777ce65eee99364056069ef93b646470f352f83c5f1037b1b18"
+      }
+    }
+  }
+}

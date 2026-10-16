@@ -1,0 +1,21 @@
+{
+  "inspection_date": "2026-10-16",
+  "scope": "Installations referenced by the inference launchers. This snapshot is not an immutable record of every historical inference run.",
+  "alphafold3": {
+    "sources": [{"url": "https://github.com/google-deepmind/alphafold3.git", "revision": "a8ecdb2d7a433c5e9f8510a0f52434a0c55018c4"}],
+    "package_version": "3.0.1",
+    "tracked_changes": false
+  },
+  "protenix": {
+    "sources": [{"url": "https://github.com/bytedance/Protenix.git", "revision": "2475421477ab414b571149ad4a875c390ff8a35d"}],
+    "package_version": "2.0.0",
+    "tracked_changes": false
+  },
+  "esmfold2": {
+    "sources": [
+      {"url": "https://github.com/Biohub/esm.git", "revision": "26b0bc2b771e3e419ea74f445a5f35cc094a1509"},
+      {"url": "https://github.com/Biohub/transformers.git", "revision": "3a8956fb4d4ea16b0ec8e71deef2c2909b6a5cbf"}
+    ],
+    "tracked_changes": false
+  }
+}

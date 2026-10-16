@@ -12,7 +12,8 @@ from .utility import utility
 
 
 ENDPOINTS = ("recall_fpr_10", "recall_fpr_20", "recall_fpr_30",
-             "recall_q_05", "recall_q_20", "utility", "precision_at_utility")
+             "recall_q_05", "recall_q_20", "utility", "recall_at_utility", "precision_at_utility")
+MATCHED_ENDPOINTS = tuple(x for x in ENDPOINTS if x != "recall_at_utility")
 LOWER_IS_BETTER = {"pair_gpde", "interface_pae"}
 
 
@@ -48,7 +49,13 @@ def _recall_budget(scores: np.ndarray, labels: np.ndarray, fraction: float) -> f
     return float(expected / labels.sum())
 
 
-def evaluate_group(scores: np.ndarray, labels: np.ndarray) -> dict[str, float]:
+def evaluate_group(scores: np.ndarray, labels: np.ndarray, *, f_safe: float = .10,
+                   f_severe: float = .30) -> dict[str, float]:
+    scores, labels = np.asarray(scores, dtype=float), np.asarray(labels)
+    if scores.ndim != 1 or labels.shape != scores.shape or not len(scores):
+        raise ValueError("scores and labels must be nonempty vectors of equal length")
+    if not np.all(np.isfinite(scores)) or not np.all(np.isin(labels, [0, 1])):
+        raise ValueError("non-finite score or invalid label")
     positive = int(labels.sum())
     negative = len(labels) - positive
     if not positive or not negative:
@@ -56,7 +63,7 @@ def evaluate_group(scores: np.ndarray, labels: np.ndarray) -> dict[str, float]:
     thresholds, tp, fp = _boundaries(scores, labels)
     options = [(math.inf, 0, 0)] + list(zip(thresholds, tp, fp))
     threshold, best_tp, best_fp = max(options, key=lambda item: (
-        utility(int(item[1]), int(item[2]), positive, negative),
+        utility(int(item[1]), int(item[2]), positive, negative, f_safe=f_safe, f_severe=f_severe),
         -int(item[2]) / negative, int(item[1]) / positive, float(item[0])))
     selected = int(best_tp) + int(best_fp)
     return {
@@ -66,15 +73,18 @@ def evaluate_group(scores: np.ndarray, labels: np.ndarray) -> dict[str, float]:
         "recall_fpr_30": _recall_fpr(tp, fp, positive, negative, 0.30),
         "recall_q_05": _recall_budget(scores, labels, 0.05),
         "recall_q_20": _recall_budget(scores, labels, 0.20),
-        "utility": utility(int(best_tp), int(best_fp), positive, negative),
+        "utility": utility(int(best_tp), int(best_fp), positive, negative, f_safe=f_safe, f_severe=f_severe),
+        "recall_at_utility": int(best_tp) / positive,
+        "fpr_at_utility": int(best_fp) / negative,
+        "true_positive": int(best_tp), "false_positive": int(best_fp),
         "precision_at_utility": int(best_tp) / selected if selected else 0.0,
         "threshold": float(threshold),
     }
 
 
-def _rank_results(results: dict[str, dict[str, float]]) -> None:
+def _rank_results(results: dict[str, dict[str, float]], endpoints=ENDPOINTS) -> None:
     ranks = {name: [] for name in results}
-    for endpoint in ENDPOINTS:
+    for endpoint in endpoints:
         ordered = sorted(results, key=lambda name: -results[name][endpoint])
         start = 0
         while start < len(ordered):
@@ -94,12 +104,12 @@ def _shared_metrics(rows: list[dict[str, Any]]) -> set[str]:
     return fields - {"pair_id", "predictor", "benchmark", "target_id", "label"}
 
 
-def _pooled(rows: list[dict[str, Any]]) -> dict[str, dict[str, float]]:
+def _pooled(rows: list[dict[str, Any]], endpoints=ENDPOINTS) -> dict[str, dict[str, float]]:
     results = {}
     for metric in sorted(_shared_metrics(rows)):
         scores, labels = _arrays(rows, metric)
         results[metric] = evaluate_group(scores, labels)
-    _rank_results(results)
+    _rank_results(results, endpoints)
     return results
 
 
@@ -147,7 +157,7 @@ def evaluate(rows: list[dict[str, Any]]) -> dict[str, Any]:
         output[predictor] = {
             "portfolio": _pooled(cohort),
             "campaign": _campaign(groups),
-            "matched_portfolio": _pooled(matched),
+            "matched_portfolio": _pooled(matched, MATCHED_ENDPOINTS),
             "coverage": {"portfolio": len(cohort), "campaign": len(matched), "targets": len(groups)},
         }
     return output

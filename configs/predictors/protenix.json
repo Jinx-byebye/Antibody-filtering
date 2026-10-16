@@ -1,0 +1,12 @@
+{
+  "predictor": "protenix",
+  "model_name": "protenix-v2",
+  "seeds": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
+  "samples": 5,
+  "templates": false,
+  "cycles": 10,
+  "diffusion_steps": 200,
+  "dtype": "bf16",
+  "paper_software_revision": null,
+  "paper_weights_sha256": null
+}

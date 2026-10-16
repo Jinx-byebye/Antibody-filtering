@@ -16,3 +16,13 @@ results/
 *.cif
 *.pdb
 *.log
+scores/
+models/
+cache/
+predictions_run/
+resources.json
+*.a3m
+*.safetensors
+*.pt
+*.zip
+*.tar.gz

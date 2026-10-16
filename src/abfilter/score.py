@@ -29,7 +29,7 @@ BASELINES: dict[str, Callable[[Sample, Candidate], float | None]] = {
 }
 
 
-def score_candidate(candidate: Candidate, ensemble: list[list[Sample]]) -> dict[str, float]:
+def score_candidate(candidate: Candidate, ensemble: list[list[Sample]], predictor: str | None = None) -> dict[str, float]:
     """Compute scores without accessing labels or other candidates."""
     if not ensemble or any(not run or len(run) != len(ensemble[0]) for run in ensemble):
         raise ValueError("ensemble is incomplete")
@@ -37,6 +37,10 @@ def score_candidate(candidate: Candidate, ensemble: list[list[Sample]]) -> dict[
     contact_available = [sample.contact_forward is not None for run in ensemble for sample in run]
     if any(contact_available) and not all(contact_available):
         raise ValueError("contact probability availability changes within the ensemble")
+    if predictor in {'alphafold3', 'protenix'} and not all(contact_available):
+        raise ValueError(f'{predictor}: RIC requires predicted contact probabilities; gRIC is not a substitute')
+    if predictor == 'esmfold2' and any(contact_available):
+        raise ValueError('ESMFold2 paper configuration requires geometric contacts (gRIC)')
     scores["ric" if all(contact_available) else "gric"] = (
         ric.score(ensemble) if all(contact_available) else gric.score(ensemble)
     )
@@ -47,4 +51,6 @@ def score_candidate(candidate: Candidate, ensemble: list[list[Sample]]) -> dict[
             raise ValueError(f"{name} is only partially available")
         if all(present):
             scores[name] = float(np.median([np.median(run) for run in runs]))
+    if predictor == 'esmfold2':
+        scores['antibody_plddt'] /= 100.0
     return scores

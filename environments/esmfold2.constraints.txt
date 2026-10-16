@@ -1,0 +1,6 @@
+# Core versions from the ESMFold2 installation; ESM and Transformers are forks.
+numpy==2.3.5
+biotite==1.7.1
+esm==3.3.0
+transformers==4.57.6
+torch==2.9.1
