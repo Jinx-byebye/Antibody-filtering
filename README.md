@@ -218,7 +218,7 @@ performed and their scope.
 @misc{liang2026antibodyfiltering,
   title  = {Revisiting Structure-Based Filtering for AI-Designed Antibodies:
             Opportunities, Limits, and What Matters},
-  author = {Liang, Langzhang and Qian, Junchen and Ma, Xiaojie and Zou, Mingxi
+  author = {Liang, Langzhang and Qian, Juncheng and Ma, Xiaojie and Zou, Mingxi
             and Xu, Yinghui and Xu, Zenglin and Ying, Tianlei},
   year   = {2026},
   eprint = {2610.23136},
