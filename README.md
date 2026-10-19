@@ -6,11 +6,11 @@
 
 **Which signals in predicted structures help select antibodies for experimental testing?**
 
-[![Paper PDF](https://img.shields.io/badge/Paper-PDF-174D59?style=flat-square)](paper/antibody-filtering.pdf)
+[![arXiv](https://img.shields.io/badge/arXiv-2610.23136-B31B1B?style=flat-square)](https://arxiv.org/pdf/2610.23136)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3B5B77?style=flat-square)](pyproject.toml)
 [![Predictors](https://img.shields.io/badge/Predictors-AF3%20%C2%B7%20Protenix--v2%20%C2%B7%20ESMFold2-67784C?style=flat-square)](docs/prediction.md)
 
-[Read the paper](paper/antibody-filtering.pdf) &nbsp; / &nbsp;
+[Read the paper](https://arxiv.org/pdf/2610.23136) &nbsp; / &nbsp;
 [Quick start](#quick-start) &nbsp; / &nbsp;
 [Datasets](#datasets) &nbsp; / &nbsp;
 [From sequences](#from-sequences-to-scores) &nbsp; / &nbsp;
@@ -27,8 +27,8 @@ pairs**, across **three predictors** and **two filtering settings**.
 
 This repository contains RIC and NAC, baseline scores, dataset preparation,
 prediction adapters, and the evaluation code accompanying the paper.
-The submitted manuscript is included as a [PDF](paper/antibody-filtering.pdf);
-an arXiv link will be added when the record becomes available.
+Read the paper on [arXiv](https://arxiv.org/abs/2610.23136) or download the
+[PDF](https://arxiv.org/pdf/2610.23136).
 
 ## What matters for filtering?
 
@@ -47,7 +47,7 @@ residues are excluded only from the confidence average used to calculate NAC.
 Global filtering on the full benchmark of 4,184 candidates; 275 ESMFold2
 out-of-memory complexes are excluded. Recall and precision are percentages.
 
-<a href="paper/antibody-filtering.pdf">
+<a href="https://arxiv.org/pdf/2610.23136">
   <img src="assets/across-antigen-results.png" alt="Table 2: full across-antigen filtering results for AlphaFold 3, Protenix-v2, and ESMFold2, including recall, utility, precision, and average rank" width="100%">
 </a>
 
@@ -61,7 +61,7 @@ ESMFold2 (1.25), whereas NAC ranks near the bottom (10.12).
 Campaign-specific evaluation of 2,400 candidates across 13 display-based and
 IgDesign antigens; 107 ESMFold2 out-of-memory complexes are excluded.
 
-<a href="paper/antibody-filtering.pdf">
+<a href="https://arxiv.org/pdf/2610.23136">
   <img src="assets/within-antigen-results.png" alt="Table 3: full within-antigen filtering results for AlphaFold 3, Protenix-v2, and ESMFold2 across 13 display-based and IgDesign antigens" width="100%">
 </a>
 
@@ -85,7 +85,7 @@ antigens, while Protenix-v2 leads in 77 of 80 within-antigen comparisons.
 
 ### Table 7: Why can confidence outside the CDRs be more informative?
 
-<a href="paper/antibody-filtering.pdf">
+<a href="https://arxiv.org/pdf/2610.23136">
   <img src="assets/regional-confidence.png" alt="Table 7: within-antigen AUC for interface, CDR, non-CDR, and whole-antibody pLDDT across three predictors and two benchmarks" width="100%">
 </a>
 
@@ -102,7 +102,7 @@ confidence in the harder-to-predict CDRs or predicted interface.
 
 ### Figure 1: Predictions contain useful, but incomplete, binding information
 
-<a href="paper/antibody-filtering.pdf">
+<a href="https://arxiv.org/pdf/2610.23136">
   <img src="assets/binding-information.png" alt="Figure 1: coordinate and confidence projections, within-target separability, and overlapping binder and non-binder contact profiles" width="100%">
 </a>
 
@@ -218,10 +218,13 @@ performed and their scope.
 @misc{liang2026antibodyfiltering,
   title  = {Revisiting Structure-Based Filtering for AI-Designed Antibodies:
             Opportunities, Limits, and What Matters},
-  author = {Liang, Langzhang and Qian, Juncheng and Ma, Xiaojie and Zou, Mingxi
+  author = {Liang, Langzhang and Qian, Junchen and Ma, Xiaojie and Zou, Mingxi
             and Xu, Yinghui and Xu, Zenglin and Ying, Tianlei},
   year   = {2026},
-  url    = {https://github.com/Jinx-byebye/Antibody-filtering}
+  eprint = {2610.23136},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CE},
+  url    = {https://arxiv.org/abs/2610.23136}
 }
 ```
 
