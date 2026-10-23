@@ -12,6 +12,7 @@ from .dataset import load_dataset
 from .evaluate import evaluate_group, _rank_results
 
 NAMES = {
+    'opendde': 'OpenDDE',
     'predictor': 'Predictor', 'metric': 'Metric', 'alphafold3': 'AlphaFold 3',
     'protenix': 'Protenix-v2', 'esmfold2': 'ESMFold2', 'pair_iptm': 'Pair-iPTM',
     'pair_gpde': 'Pair-gPDE', 'interface_pae': 'Interface PAE',

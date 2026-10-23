@@ -13,6 +13,14 @@ def discover(root, predictor, candidate, seeds, samples):
                 records.append((int(match[1]), int(match[2]), structure,
                                 structure.with_name(stem + '_confidences.json'),
                                 structure.with_name(stem + '_summary_confidences.json')))
+    elif predictor == 'opendde':
+        import numpy as np
+        for full in root.rglob('*_full_data_sample_*.npz'):
+            with np.load(full, allow_pickle=False) as archive:
+                seed, sample = int(archive['seed']), int(archive['sample_index'])
+            structure = full.with_name(full.name.replace('_full_data_', '_').replace('.npz', '.cif'))
+            summary = full.with_name(full.name.replace('_full_data_', '_summary_confidence_').replace('.npz', '.json'))
+            records.append((seed, sample, structure, full, summary))
     elif predictor == 'protenix':
         for structure in root.rglob('*_sample_*.cif'):
             match = re.fullmatch(r'seed_(\d+)', structure.parent.parent.name)

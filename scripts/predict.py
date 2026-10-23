@@ -20,7 +20,7 @@ from abfilter.predictors.convert import convert_sample
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--predictor', choices=['alphafold3', 'protenix', 'esmfold2'], required=True)
+    parser.add_argument('--predictor', choices=['alphafold3', 'protenix', 'esmfold2', 'opendde'], required=True)
     parser.add_argument('--candidates', type=Path, required=True)
     parser.add_argument('--msa-manifest', type=Path, required=True)
     parser.add_argument('--config', type=Path)
@@ -44,7 +44,8 @@ def main():
             raise ValueError(f'resources must declare {key}; installed defaults are not a version record')
     paths = resource_paths(resources['paths'])
     required = {'alphafold3': {'python', 'runner', 'models', 'databases'},
-                'protenix': {'runner'}, 'esmfold2': {'python', 'models', 'esmc', 'ccd'}}[args.predictor]
+                'protenix': {'runner'}, 'esmfold2': {'python', 'models', 'esmc', 'ccd'},
+                'opendde': {'python', 'source', 'models'}}[args.predictor]
     if required - set(paths):
         raise ValueError(f'Missing resource paths: {sorted(required - set(paths))}')
     if resources.get('structure_plddt_scale') not in (1, 100):
@@ -52,6 +53,13 @@ def main():
     for key, path in paths.items():
         if not path.exists():
             raise FileNotFoundError(f'Missing {key}: {path}')
+    if args.predictor == 'opendde':
+        revision = subprocess.check_output(['git', '-C', str(paths['source']), 'rev-parse', 'HEAD'], text=True).strip()
+        if revision != config['software_revision'] or resources['software_revision'] != revision:
+            raise ValueError('OpenDDE source revision differs from configuration')
+        checkpoint = paths['models'] / 'checkpoint' / config['checkpoint']
+        if digest(checkpoint) != config['checkpoint_sha256']:
+            raise ValueError('OpenDDE checkpoint checksum differs from configuration')
     candidates = read_candidates(args.candidates)
     msa = load_manifest(args.msa_manifest, candidates)
     output = args.output.resolve()
@@ -99,6 +107,10 @@ def main():
                 else:
                     invocation = command(args.predictor, config, paths, input_path, work / 'output')
                 environment = {**os.environ, **resources.get('environment', {}), 'CUDA_VISIBLE_DEVICES': devices[index]}
+                if args.predictor == 'opendde':
+                    environment.update(OPENDDE_ROOT_DIR=str(paths['models']),
+                        PYTHONPATH=os.pathsep.join((str(paths['source']),str(ROOT/'src'))),
+                        LAYERNORM_TYPE='torch', PYTORCH_CUDA_ALLOC_CONF='expandable_segments:True')
                 record = {**identity, 'signature': signature, 'command': invocation, 'gpu': devices[index], 'hostname': os.uname().nodename}
                 (work / 'run.json').write_text(json.dumps(record, indent=2) + '\n')
                 if args.prepare_only:

@@ -1,0 +1,21 @@
+{
+  "predictor": "opendde",
+  "repository": "https://github.com/aurekaresearch/OpenDDE.git",
+  "software_revision": "9d0d9c975178074c1ce722d2d6eefac8b7057062",
+  "model_name": "opendde_v1",
+  "checkpoint": "opendde.pt",
+  "checkpoint_revision": "eddd563ce96571f784012edd8f045181c8f8627d",
+  "checkpoint_sha256": "7b826620390afad877ee2babc6a4d0df81b94d3a0be030959853d6a7da0807cc",
+  "checkpoint_bytes": 2625249069,
+  "seeds": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110],
+  "samples": 5,
+  "cycles": 10,
+  "diffusion_steps": 200,
+  "dtype": "bf16",
+  "templates": false,
+  "use_msa": true,
+  "use_rna_msa": false,
+  "need_atom_confidence": true,
+  "use_tfg_guidance": false,
+  "expected_candidates": 4184
+}

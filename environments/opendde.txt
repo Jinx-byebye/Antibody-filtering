@@ -1,0 +1,3 @@
+# Install with the OpenDDE GPU dependencies in an independent Python 3.11 environment.
+# Source and checkpoint identities are fixed in configs/predictors/opendde.json.
+opendde[gpu] @ git+https://github.com/aurekaresearch/OpenDDE.git@9d0d9c975178074c1ce722d2d6eefac8b7057062

@@ -1,8 +1,9 @@
 # Data and score files
 
-Two separately distributed archives are required for CPU reproduction. Their
-public download addresses and licenses will be added when the release is published.
-No download link is available yet.
+Two archives are available in the [v0.2.0 release](https://github.com/Jinx-byebye/Antibody-filtering/releases/tag/v0.2.0):
+
+- [Candidate datasets](https://github.com/Jinx-byebye/Antibody-filtering/releases/download/v0.2.0/antibody_binding_datasets.zip)
+- [Full-precision scores and populations](https://github.com/Jinx-byebye/Antibody-filtering/releases/download/v0.2.0/antibody_scores.zip)
 
 Archive checksums are in `reference/data.sha256` and `reference/scores.sha256`.
 Run `sha256sum -c` with those files from the directory containing the downloaded
@@ -22,20 +23,28 @@ antibody_scores/
   scores/alphafold3.csv
   scores/protenix.csv
   scores/esmfold2.csv
+  scores/opendde.csv
   populations/alphafold3.json
   populations/protenix.json
   populations/esmfold2.json
+  populations/opendde.json
+  configs/evaluation.json
+  configs/opendde.json
+  regional_confidence/
   SHA256SUMS
 ```
 
 Scores retain full floating-point precision and contain no labels. Missing
 predictions are recorded in the population manifests, not represented by zero
 scores. The dataset and score checksums detect accidental changes to a release.
+The regional-confidence folder contains the matched candidate scores, per-antigen
+endpoints, summary intervals, and protocol for Figure 2. Candidate labels remain
+in the dataset and are joined by `pair_id`.
 
 RIC, gRIC, NAC, pair-iPTM, pDockQ, pDockQ2, and ipSAE are dimensionless; PAE and
 gPDE are in Angstroms. Predictor-native ranking scores and AntiConf retain their
 original scales. Whole-antibody pLDDT in the released score files follows the
-original scoring outputs: 0-100 for AlphaFold 3 and Protenix-v2, and 0-1 for
+original scoring outputs: 0-100 for AlphaFold 3, Protenix-v2, and OpenDDE, and 0-1 for
 ESMFold2. This positive scale change does not affect ranks or selected candidates.
 NAC is on a 0-1 scale for all predictors. Normalized prediction files always use
 0-100 pLDDT; the score exporter must preserve the predictor-specific score scale.

@@ -14,7 +14,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--candidates', type=Path, required=True)
     parser.add_argument('--manifest', type=Path, required=True)
-    parser.add_argument('--predictor', required=True, choices=['alphafold3', 'protenix', 'esmfold2'])
+    parser.add_argument('--predictor', required=True, choices=['alphafold3', 'protenix', 'esmfold2', 'opendde'])
     parser.add_argument('--seeds', required=True, help='Ordered comma-separated inference seeds')
     parser.add_argument('--samples', type=int, default=5)
     parser.add_argument('--output', type=Path, required=True)

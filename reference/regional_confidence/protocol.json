@@ -1,0 +1,17 @@
+{
+  "cohort": 2464,
+  "antigens_per_benchmark": 7,
+  "aggregation": "equal-antigen mean",
+  "budget": 0.2,
+  "budget_rule": "floor with expected recall at tied boundary",
+  "f_safe": 0.1,
+  "f_severe": 0.3,
+  "bootstrap_repeats": 10000,
+  "bootstrap_seeds": {
+    "ngs": 20261021,
+    "igdesign": 20261022
+  },
+  "score_sha256": "5ae82c022f47b0834ab2a2e92d278d67af8df777794d2ec32282703da558b8e7",
+  "config_sha256": "5543ab5d84dc61fbf515afabe8fd328af597ee9264b0322b9c576e83120fa9a5",
+  "label_source": "Candidate dataset, joined by pair_id"
+}

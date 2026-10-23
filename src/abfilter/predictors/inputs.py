@@ -18,7 +18,7 @@ def prepare(candidate, predictor, msa, seeds):
                                  'unpairedMsa': msa[sequence].read_text(),
                                  'pairedMsa': '', 'templates': []}}
                     for chain, sequence in chains.items()]}
-    if predictor == 'protenix':
+    if predictor in ('protenix', 'opendde'):
         return [{'name': candidate.pair_id, 'sequences': [
             {'proteinChain': {'id': [chain], 'count': 1, 'sequence': sequence,
                               'unpairedMsaPath': str(msa[sequence]), 'pairedMsaPath': None}}
@@ -33,6 +33,18 @@ def prepare(candidate, predictor, msa, seeds):
 def command(predictor, config, paths, input_path, output):
     if config['templates'] is not False:
         raise ValueError('The paper configuration disables templates')
+    if predictor == 'opendde':
+        runner = Path(__file__).resolve().parents[3] / 'scripts/run_opendde.py'
+        return [str(paths['python']), str(runner), '--model_name', config['model_name'],
+                '--input_json_path', str(input_path), '--dump_dir', str(output),
+                '--seeds', ','.join(map(str, config['seeds'])),
+                '--model.N_cycle', str(config['cycles']),
+                '--sample_diffusion.N_sample', str(config['samples']),
+                '--sample_diffusion.N_step', str(config['diffusion_steps']),
+                '--dtype', config['dtype'], '--device', 'cuda', '--use_msa', 'true',
+                '--use_template', 'false', '--use_rna_msa', 'false', '--use_tfg_guidance', 'false',
+                '--need_atom_confidence', 'true', '--triangle_attention', 'cuequivariance',
+                '--triangle_multiplicative', 'cuequivariance']
     if predictor == 'alphafold3':
         return [str(paths['python']), str(paths['runner']), f'--json_path={input_path}',
                 f'--output_dir={output}', f'--model_dir={paths["models"]}',

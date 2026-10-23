@@ -14,7 +14,8 @@
   "predictor_metrics": {
     "alphafold3": ["pair_iptm", "interface_pae", "antibody_plddt", "ranking_score", "pdockq", "pdockq2", "ipsae_d0res", "ipsae_d0dom", "ipsae_d0chn", "anticonf", "ric", "nac"],
     "protenix": ["pair_iptm", "pair_gpde", "interface_pae", "antibody_plddt", "ranking_score", "pdockq", "pdockq2", "ipsae_d0res", "ipsae_d0dom", "ipsae_d0chn", "anticonf", "ric", "nac"],
-    "esmfold2": ["pair_iptm", "interface_pae", "antibody_plddt", "pdockq", "pdockq2", "ipsae_d0res", "ipsae_d0dom", "ipsae_d0chn", "anticonf", "gric", "nac"]
+    "esmfold2": ["pair_iptm", "interface_pae", "antibody_plddt", "pdockq", "pdockq2", "ipsae_d0res", "ipsae_d0dom", "ipsae_d0chn", "anticonf", "gric", "nac"],
+    "opendde": ["pair_iptm", "pair_gpde", "interface_pae", "antibody_plddt", "ranking_score", "pdockq", "pdockq2", "ipsae_d0res", "ipsae_d0dom", "ipsae_d0chn", "anticonf", "ric", "nac"]
   },
   "endpoints": {
     "table2": ["recall_fpr_10", "recall_fpr_20", "recall_fpr_30", "recall_q_05", "recall_q_20", "utility", "recall_at_utility", "precision_at_utility"],

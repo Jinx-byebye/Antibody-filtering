@@ -64,3 +64,36 @@ the script does not supply alternative settings for missing values.
 The reference CSVs were extracted independently from the manuscript. Passing
 `--reference reference` checks every displayed value and fails on any mismatch.
 It does not replace calculated values with reference values.
+## OpenDDE and regional confidence
+
+OpenDDE uses the same frozen evaluation rules and 13 metrics as Protenix-v2.
+Its populations contain 4,184 candidates for across-antigen evaluation and
+2,400 candidates across 13 antigens for within-antigen evaluation. Average
+ranks are calculated independently within each predictor; adding OpenDDE
+does not change the original predictors' ranks. The reproduction command
+also provides the matched-population global evaluation for OpenDDE in its
+Table 4 output; the manuscript's Table 4 retains the original three predictors.
+
+Figure 2 uses a different, fixed matched population: 2,464 candidates, including
+1,293 display-based and 1,171 IgDesign pairs, with seven antigens in each benchmark.
+The seven scores are NAC, N3AC (excluding only CDR3), CDR3+NAC (excluding CDR1/2),
+whole-antibody, CDR, CDR3-only, and interface pLDDT. CDR definitions apply to both
+heavy and light chains. Interface pLDDT uses unique contact residues in antibody
+variable domains and the antigen, with an 8-Angstrom C-beta cutoff and C-alpha
+fallback. Samples without contacts receive zero.
+
+Every score uses a per-sample residue mean, then the median of five samples and
+the median of ten seeds. AUC, recall at a 20% budget, and maximum utility are
+computed separately for each antigen, then averaged with equal antigen weights.
+The 95% intervals use 10,000 paired antigen bootstrap resamples, shared across
+scores and predictors. They describe antigen variation, not independently
+validated threshold performance.
+
+The figure's numerical summaries are in `reference/regional_confidence/`.
+With Matplotlib installed, regenerate its PDF, SVG, and PNG using:
+
+```bash
+python scripts/plot_regions.py reference/regional_confidence \
+  --output results/regional_confidence
+python scripts/render_tables.py --reference reference --output results/tables
+```

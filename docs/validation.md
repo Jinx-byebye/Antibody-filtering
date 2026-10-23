@@ -4,9 +4,9 @@
 
 - Fresh CPU environment: Python 3.13, NumPy 2.2.6, editable package installation.
 - Dataset validation and reproduction directly from the two release archives.
-- All 936 displayed values in Tables 2, 3 and 4 agree with independently extracted
+- All 936 original displayed values in Tables 2, 3 and 4 agree with independently extracted
   manuscript references, including average ranks.
-- Twenty-nine unit tests pass, covering score joins, duplicates, non-finite values,
+- Thirty-one unit tests pass, covering score joins, duplicates, non-finite values,
   ties, ranking, sequences, CDR masks, conversion, and complete-ensemble checks.
 - Synthetic single-heavy-chain, heavy/light-chain, and multichain-antigen ensembles
   agree with the original RIC, pDockQ, pDockQ2, ipSAE and AntiConf calculation kernels.
@@ -35,3 +35,23 @@ and checksums; it did not test a new MSA search or reproduce a full paper ensemb
 
 The CPU release uses the original full-precision scores. It does not depend on
 the unfinished GPU validation, and synthetic tests do not establish that validation.
+
+## OpenDDE extension
+
+The four-predictor score release reproduces every displayed value in Tables 2
+and 3, including average ranks. Adding OpenDDE leaves all original predictor
+rows unchanged. OpenDDE contributes 4,184 complete ensembles and 2,400 eligible
+within-antigen candidates across 13 antigens.
+
+Public lossless conversion and scoring were checked on three complete ensembles:
+a single antibody chain, paired heavy/light chains, and a multichain antigen.
+All 13 scores matched the saved evaluation scores exactly for each 50-sample
+ensemble. CPU tests cover sample identities, unrounded pLDDT, chain-pair gPDE,
+and inference-budget arguments. The public inference wrapper uses the output
+adapter and inference flags used for the completed benchmark; it has not been
+rerun for a second full benchmark.
+
+Figure 2 uses a separate fixed set of 2,464 candidates. Seven regional scores
+are compared by per-antigen AUC, fixed-budget recall, and maximum utility, with
+10,000 paired antigen bootstrap resamples. Original three-predictor numerical
+results are retained unchanged when OpenDDE is added.

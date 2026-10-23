@@ -131,6 +131,52 @@ ensembles. Smoke-test scores are not expected to match the released scores.
 
 ## Conversion and scoring
 
+### OpenDDE
+
+Install the source revision and GPU dependencies in a separate environment:
+
+```bash
+git clone https://github.com/aurekaresearch/OpenDDE.git
+git -C OpenDDE checkout 9d0d9c975178074c1ce722d2d6eefac8b7057062
+python3.11 -m venv opendde-env
+opendde-env/bin/python -m pip install './OpenDDE[gpu]'
+export OPENDDE_ROOT_DIR=/path/to/opendde_data
+bash OpenDDE/scripts/download_opendde_data.sh --skip-search-database
+```
+
+Use the general-purpose `opendde.pt`, not the antibody-antigen-specific
+checkpoint. `configs/predictors/opendde.json` records the exact source revision,
+checkpoint revision, byte count, and SHA-256. The prediction entry point verifies
+the source revision and checkpoint hash before starting.
+
+For OpenDDE, `resources.json` uses paths `python` (its environment interpreter),
+`source` (the source checkout), and `models` (the runtime data directory containing
+`checkpoint/opendde.pt` and `common/`). Set `software_revision` to the configured
+revision, `weights_identity` to the checkpoint SHA-256, and
+`structure_plddt_scale` to 100. The adapter supplies `OPENDDE_ROOT_DIR` and
+the source import path automatically.
+
+```bash
+python scripts/predict.py --predictor opendde \
+  --candidates data/candidates.jsonl --msa-manifest data/msa.json \
+  --resources resources.json --gpus 0,1 --output opendde_predictions
+python scripts/score.py --predictor opendde \
+  --candidates data/candidates.jsonl --predictions opendde_predictions/predictions \
+  --output results/opendde.csv
+```
+
+The paper uses ten seeds (101-110), five samples per seed, ten recycling cycles,
+200 diffusion steps, bf16, local unpaired MSAs, no templates, and no constraint
+guidance. Protein MSAs are supplied by the shared validated MSA manifest; no MSA
+search is performed inside inference. The output adapter changes serialization,
+not inference: full confidence tensors and atom coordinates are saved losslessly
+to NPZ. Sample identities are read from the arrays rather than confidence-ranked
+filenames. Pair-gPDE is the minimum antibody-to-antigen entry in the chain-pair
+matrix; global gPDE is not substituted. Predicted contact probabilities support
+RIC directly. All 4,184 benchmark candidates completed 50-sample ensembles.
+
+### Common output format
+
 Inference writes normalized arrays under
 `predictions_run/predictions/<predictor>/<pair_id>/run_000/sample_00.npz`.
 For existing outputs, `scripts/convert_predictions.py` takes a JSONL manifest

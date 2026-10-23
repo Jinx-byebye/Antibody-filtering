@@ -69,6 +69,30 @@ def convert_sample(candidate, predictor, structure, confidence, summary, output,
                    chain_map, structure_plddt_scale, confidence_plddt_scale=100):
     if structure_plddt_scale not in (1, 100) or confidence_plddt_scale not in (1, 100):
         raise ValueError('pLDDT scales must be explicitly 1 or 100')
+    if predictor == 'opendde':
+        from .opendde import read_prediction
+        expected = {**candidate.antibody_sequences, **candidate.antigen_sequences}
+        if chain_map != {c:c for c in expected}:
+            raise ValueError('OpenDDE lossless output must preserve input chain IDs')
+        expected_summary = confidence.with_name(confidence.name.replace('_full_data_', '_summary_confidence_').replace('.npz', '.json'))
+        if summary.resolve() != expected_summary.resolve():
+            raise ValueError('Summary does not match the lossless confidence sample')
+        sample, _, _ = read_prediction(confidence, candidate)
+        arrays = dict(coordinates=sample.coordinates, plddt=sample.plddt, pae=sample.pae,
+                      chain_ids=sample.chain_ids, contact_forward=sample.contact_forward,
+                      contact_reverse=sample.contact_reverse, **sample.native)
+        symbols = np.empty(len(sample.chain_ids), dtype='U1')
+        for chain, sequence in expected.items():
+            symbols[sample.chain_ids == chain] = list(sequence)
+        arrays['residue_symbols'] = symbols
+        output.parent.mkdir(parents=True, exist_ok=True)
+        if output.exists():
+            raise FileExistsError(output)
+        temporary = output.with_suffix('.partial.npz')
+        np.savez_compressed(temporary, **arrays)
+        read_sample(temporary, candidate)
+        temporary.replace(output)
+        return
     arrays = structure_arrays(structure, structure_plddt_scale)
     raw_chains = arrays['chain_ids'].tolist()
     raw_order = list(dict.fromkeys(raw_chains))
