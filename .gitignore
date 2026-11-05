@@ -26,3 +26,6 @@ resources.json
 *.pt
 *.zip
 *.tar.gz
+
+# Manuscripts are distributed separately from the review code.
+/paper/*.pdf

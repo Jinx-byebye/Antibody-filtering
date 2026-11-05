@@ -1,9 +1,9 @@
 # Data and score files
 
-Two archives are available in the [v0.2.0 release](https://github.com/Jinx-byebye/Antibody-filtering/releases/tag/v0.2.0):
+The evaluation uses two archives:
 
-- [Candidate datasets](https://github.com/Jinx-byebye/Antibody-filtering/releases/download/v0.2.0/antibody_binding_datasets.zip)
-- [Full-precision scores and populations](https://github.com/Jinx-byebye/Antibody-filtering/releases/download/v0.2.0/antibody_scores.zip)
+- `antibody_binding_datasets.zip`: candidate datasets.
+- `antibody_scores.zip`: full-precision scores and evaluation populations.
 
 Archive checksums are in `reference/data.sha256` and `reference/scores.sha256`.
 Run `sha256sum -c` with those files from the directory containing the downloaded
