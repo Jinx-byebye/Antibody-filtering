@@ -6,15 +6,12 @@
 
 **Which signals in predicted structures help select antibodies for experimental testing?**
 
-[![arXiv](https://img.shields.io/badge/arXiv-2610.23136-B31B1B?style=flat-square)](https://arxiv.org/pdf/2610.23136)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3B5B77?style=flat-square)](pyproject.toml)
 [![Predictors](https://img.shields.io/badge/Predictors-AF3%20%C2%B7%20Protenix--v2%20%C2%B7%20ESMFold2%20%C2%B7%20OpenDDE-67784C?style=flat-square)](docs/prediction.md)
 
-[Read the paper](https://arxiv.org/pdf/2610.23136) &nbsp; / &nbsp;
 [Quick start](#quick-start) &nbsp; / &nbsp;
 [Datasets](#datasets) &nbsp; / &nbsp;
-[From sequences](#from-sequences-to-scores) &nbsp; / &nbsp;
-[Citation](#citation)
+[From sequences](#from-sequences-to-scores)
 
 </div>
 
@@ -27,10 +24,6 @@ pairs**, across **four predictors** and **two filtering settings**.
 
 This repository contains RIC and NAC, baseline scores, dataset preparation,
 prediction adapters, and the evaluation code accompanying the paper.
-Read the paper on [arXiv](https://arxiv.org/abs/2610.23136) or download the
-[PDF](https://arxiv.org/pdf/2610.23136).
-The [repository manuscript](paper/antibody-filtering.pdf) includes the OpenDDE
-extension and the updated regional-confidence figure.
 
 ## What matters for filtering?
 
@@ -49,9 +42,7 @@ residues are excluded only from the confidence average used to calculate NAC.
 Global filtering on the full benchmark of 4,184 candidates; 275 ESMFold2
 out-of-memory complexes are excluded. Recall and precision are percentages.
 
-<a href="https://arxiv.org/pdf/2610.23136">
   <img src="assets/across-antigen-results.png" alt="Table 2: across-antigen filtering for AlphaFold 3, Protenix-v2, ESMFold2, and OpenDDE" width="100%">
-</a>
 
 With one threshold shared across antigens, **RIC has the best average rank** for
 AlphaFold 3 (1.50) and Protenix-v2 (1.00), with large gains in low-FPR recall and
@@ -65,9 +56,7 @@ and utility 0.2196; NAC ranks 12.00.
 Campaign-specific evaluation of 2,400 candidates across 13 display-based and
 IgDesign antigens; 107 ESMFold2 out-of-memory complexes are excluded.
 
-<a href="https://arxiv.org/pdf/2610.23136">
   <img src="assets/within-antigen-results.png" alt="Table 3: within-antigen filtering for AlphaFold 3, Protenix-v2, ESMFold2, and OpenDDE" width="100%">
-</a>
 
 **The ordering reverses when candidates compete within the same antigen.** NAC
 ranks first for AlphaFold 3 and ESMFold2 (1.38 for both) and remains among the
@@ -93,9 +82,7 @@ antigens, while Protenix-v2 leads in 77 of 80 within-antigen comparisons.
 
 ### Figure 2: Regional confidence, from separability to screening gains
 
-<a href="https://arxiv.org/pdf/2610.23136">
   <img src="assets/regional-confidence.png" alt="Figure 2: seven regional confidence scores compared by AUC, fixed-budget recall, and utility across four predictors and two benchmarks" width="100%">
-</a>
 
 **Figure 2.** NAC has the highest mean AUC in seven of eight predictor-benchmark
 comparisons. N³AC, which excludes only CDR3, slightly leads for OpenDDE on
@@ -113,9 +100,7 @@ predicted confidence.
 
 ### Figure 1: Predictions contain useful, but incomplete, binding information
 
-<a href="https://arxiv.org/pdf/2610.23136">
   <img src="assets/binding-information.png" alt="Figure 1: coordinate and confidence projections, within-target separability, and overlapping binder and non-binder contact profiles" width="100%">
-</a>
 
 **Figure 1.** Adding confidence information improves average within-target
 separability in the AlphaFold 3 analysis, while predicted contact regions can
@@ -142,10 +127,9 @@ AlphaFold 3 and Protenix-v2.
 Generate Tables 2, 3, and 4 from candidate labels and full-precision scores. This
 requires Python and NumPy; no GPU or structure files are needed for this step.
 
-Download [candidate datasets](https://github.com/Jinx-byebye/Antibody-filtering/releases/download/v0.2.0/antibody_binding_datasets.zip)
-and [four-predictor scores](https://github.com/Jinx-byebye/Antibody-filtering/releases/download/v0.2.0/antibody_scores.zip).
-See the [data guide](docs/data.md) for checksums and fields. Once the archives
-are in the repository directory:
+The commands below use the candidate dataset archive
+(`antibody_binding_datasets.zip`) and four-predictor score archive
+(`antibody_scores.zip`). Place both archives in the repository directory:
 
 ```bash
 python3 -m venv .venv
@@ -212,7 +196,6 @@ mappings are not averaged into partial ensembles.
 | [`environments/`](environments/) | CPU dependencies and separate predictor constraints |
 | [`reference/`](reference/) | Reference tables, archive checksums, and model asset identities |
 | [`docs/`](docs/) | Data, evaluation, prediction, and validation documentation |
-| [`paper/`](paper/) | Accompanying manuscript |
 
 Run the tests with:
 
@@ -223,22 +206,6 @@ python -m unittest discover -s tests -v
 Tests use synthetic inputs. Experimental labels are used for evaluation, not
 score calculation. See [validation details](docs/validation.md) for the checks
 performed and their scope.
-
-## Citation
-
-```bibtex
-@misc{liang2026antibodyfiltering,
-  title  = {Revisiting Structure-Based Filtering for AI-Designed Antibodies:
-            Opportunities, Limits, and What Matters},
-  author = {Liang, Langzhang and Qian, Juncheng and Ma, Xiaojie and Zou, Mingxi
-            and Xu, Yinghui and Xu, Zenglin and Ying, Tianlei},
-  year   = {2026},
-  eprint = {2610.23136},
-  archivePrefix = {arXiv},
-  primaryClass = {cs.CE},
-  url    = {https://arxiv.org/abs/2610.23136}
-}
-```
 
 Predictor software, weights, databases, and third-party methods retain their
 respective licenses and attribution requirements.
