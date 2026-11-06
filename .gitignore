@@ -8,7 +8,6 @@ dist/
 .DS_Store
 
 # Candidate metadata, labels, predictions, and derived results stay local.
-data/
 predictions/
 results/
 *.jsonl
@@ -29,3 +28,10 @@ resources.json
 
 # Manuscripts are distributed separately from the review code.
 /paper/*.pdf
+
+# Only the published benchmark inputs are versioned; other data stay local.
+/data/*
+!/data/antibody_binding_datasets/
+!/data/antibody_binding_datasets/**
+!/data/antibody_scores/
+!/data/antibody_scores/**

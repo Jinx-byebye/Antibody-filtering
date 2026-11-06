@@ -1,7 +1,7 @@
 # Evaluation populations
 
-The score release contains `populations/alphafold3.json`, `protenix.json`, and
-`esmfold2.json`, and `opendde.json`. These manifests accompany the data rather than the source code.
+The directory `data/antibody_scores/populations/` contains `alphafold3.json`,
+`protenix.json`, `esmfold2.json`, and `opendde.json`.
 Each lists included candidate identifiers, the within-antigen subset, and excluded
 identifiers with reasons. The reproduction script checks the complete partition
 against the dataset and requires exactly one score row per included candidate.

@@ -1,0 +1,20 @@
+{
+  "display_enrichment": {
+    "candidates": 1400,
+    "positive": 700,
+    "negative": 700,
+    "antigen_constructs": 7
+  },
+  "igdesign_spr": {
+    "candidates": 1171,
+    "positive": 249,
+    "negative": 922,
+    "antigen_constructs": 7
+  },
+  "literature_affinity": {
+    "candidates": 1613,
+    "positive": 1510,
+    "negative": 103,
+    "antigen_constructs": 165
+  }
+}

@@ -1,22 +1,22 @@
 # Data and score files
 
-The evaluation uses two archives:
+The evaluation data are included directly in this repository:
 
-- `antibody_binding_datasets.zip`: candidate datasets.
-- `antibody_scores.zip`: full-precision scores and evaluation populations.
+- [`data/antibody_binding_datasets/`](../data/antibody_binding_datasets/): candidate datasets.
+- [`data/antibody_scores/`](../data/antibody_scores/): full-precision scores and evaluation populations.
 
-Archive checksums are in `reference/data.sha256` and `reference/scores.sha256`.
-Run `sha256sum -c` with those files from the directory containing the downloaded
-archives (on macOS, use `shasum -a 256 -c`). After extraction, each archive also
-contains a `SHA256SUMS` file for checking individual files.
+Each directory contains a `SHA256SUMS` file. From that directory, run
+`sha256sum -c SHA256SUMS` (on macOS, `shasum -a 256 -c SHA256SUMS`).
+The archive checksums in `reference/data.sha256` and `reference/scores.sha256`
+refer to the previously distributed ZIP files, not the directories.
 
-The dataset archive contains `display_enrichment/`, `igdesign_spr/`, and
+The dataset directory contains `display_enrichment/`, `igdesign_spr/`, and
 `literature_affinity/`. Each folder has `sequences.csv`, `metadata.jsonl`, and a
-README. The archive's `FIELDS.md` defines every experimental metadata field and
+README. `FIELDS.md` defines every experimental metadata field and
 unit. Read the assay-specific metadata before treating display enrichment as an
 affinity measurement. `pair_id` is the stable join key, not a row number.
 
-The score archive contains:
+The score directory contains:
 
 ```text
 antibody_scores/

@@ -127,18 +127,17 @@ AlphaFold 3 and Protenix-v2.
 Generate Tables 2, 3, and 4 from candidate labels and full-precision scores. This
 requires Python and NumPy; no GPU or structure files are needed for this step.
 
-The commands below use the candidate dataset archive
-(`antibody_binding_datasets.zip`) and four-predictor score archive
-(`antibody_scores.zip`). Place both archives in the repository directory:
+Candidate sequences, experimental labels, and metadata are included in
+[`data/antibody_binding_datasets/`](data/antibody_binding_datasets/).
+Full-precision scores for all four predictors and evaluation populations are in
+[`data/antibody_scores/`](data/antibody_scores/). No separate data download is needed.
+From the repository directory, run:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r environments/cpu.txt -e .
 
-mkdir -p data results
-unzip antibody_binding_datasets.zip -d data
-unzip antibody_scores.zip -d data
 python scripts/validate_dataset.py data/antibody_binding_datasets
 
 python scripts/reproduce_tables.py \
@@ -195,6 +194,7 @@ mappings are not averaged into partial ensembles.
 | [`configs/`](configs/) | Evaluation rules, paper model settings, and small test configurations |
 | [`environments/`](environments/) | CPU dependencies and separate predictor constraints |
 | [`reference/`](reference/) | Reference tables, archive checksums, and model asset identities |
+| [`data/`](data/) | Candidate sequences, experimental labels, metadata, and full-precision scores |
 | [`docs/`](docs/) | Data, evaluation, prediction, and validation documentation |
 
 Run the tests with:
