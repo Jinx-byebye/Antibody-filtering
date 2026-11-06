@@ -38,7 +38,7 @@ class Her2Tests(unittest.TestCase):
                 sys.executable, str(ROOT / 'scripts' / 'evaluate_external.py'),
                 '--candidates', str(DATA / 'candidates.jsonl'),
                 '--scores', str(DATA / 'scores'),
-                '--predictors', 'alphafold3', 'protenix', 'opendde',
+                '--predictors', 'protenix',
                 '--config', str(DATA / 'evaluation.json'), '--output', directory,
             ], check=True, capture_output=True, text=True)
             with (Path(directory) / 'all.csv').open(newline='') as f:

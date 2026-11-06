@@ -20,13 +20,13 @@ the prediction itself includes the complete antibody and antigen.
 | `candidates.jsonl` | Sequences, chain roles, experimental labels, CDR annotation and source metadata |
 | `scores/<predictor>/<predictor>.csv` | Full-precision scores linked by `pair_id` |
 | `evaluation.json` | Score directions, utility parameters, eligibility and ranking endpoints |
-| `reference/all.csv`, `reference/all.md` | Complete-cohort results for three predictors |
+| `reference/all.csv`, `reference/all.md` | Complete-cohort results for Protenix-v2 |
 | `SHA256SUMS` | SHA-256 checksums of the dataset, scores, configuration and reference tables |
 
-Each candidate has ten prediction seeds (101-110), with five samples per seed,
-for each included predictor. Large structures and residue-level confidence
+Each candidate has ten Protenix-v2 prediction seeds (101-110), with five samples
+per seed. Large structures and residue-level confidence
 arrays are not included. This cohort is evaluated separately from the original
-4,184-candidate benchmark. ESMFold2 is not included in this complete-cohort release.
+4,184-candidate benchmark.
 
 ### Candidate fields
 
@@ -56,7 +56,7 @@ From the repository root, after installing the CPU evaluation dependencies:
 python scripts/evaluate_external.py \
   --candidates data/her2/candidates.jsonl \
   --scores data/her2/scores \
-  --predictors alphafold3 protenix opendde \
+  --predictors protenix \
   --config data/her2/evaluation.json \
   --output results/her2
 ```
@@ -71,5 +71,4 @@ selection expectation of 19.96% recall.
 
 For Protenix-v2, NAC has the best average rank (1.62), compared with 5.75 for
 pair-ipTM. NAC recall at Q=20% is 23.91%, versus 20.48% for pair-ipTM and 24.57%
-for whole-antibody pLDDT. OpenDDE NAC achieves 32.63% recall, compared with 32.89%
-for pair-ipTM. See the [full comparison](reference/all.md) for all endpoints.
+for whole-antibody pLDDT. See the [full comparison](reference/all.md) for all endpoints.

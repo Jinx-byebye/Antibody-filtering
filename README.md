@@ -174,13 +174,13 @@ ESMFold2 exclusions. See [data formats and units](docs/data.md).
 The [HER2 dataset and prediction scores](data/her2/) contain 1,854 AI-designed
 antibodies from Absci Corporation (2023), evaluated separately from the benchmark
 above. All candidates have the same non-CDR sequence and distinct combined CDR
-sequences. Sequences, SPR labels, and full-precision AlphaFold 3, Protenix-v2,
-and OpenDDE scores are included, together with CPU evaluation instructions.
+sequences. Sequences, SPR labels, and full-precision Protenix-v2 scores are
+included, together with CPU evaluation instructions.
 
 For Protenix-v2, NAC ranks first with an average rank of **1.62**, compared with
 **5.75** for pair-ipTM. Rankings average eight evaluation endpoints within each
 predictor. The [complete results](data/her2/reference/all.md) include all metrics
-and all three predictors.
+for Protenix-v2.
 
 ## From sequences to scores
 
