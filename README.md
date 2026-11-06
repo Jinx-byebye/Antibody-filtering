@@ -169,6 +169,19 @@ Each dataset has a sequence table, a metadata file, and field documentation.
 population manifests preserve the paper's evaluation sets, including the 275
 ESMFold2 exclusions. See [data formats and units](docs/data.md).
 
+### Additional AI-designed HER2 antibodies
+
+The [HER2 dataset and prediction scores](data/her2/) contain 1,854 AI-designed
+antibodies from Absci Corporation (2023), evaluated separately from the benchmark
+above. All candidates have the same non-CDR sequence and distinct combined CDR
+sequences. Sequences, SPR labels, and full-precision AlphaFold 3, Protenix-v2,
+and OpenDDE scores are included, together with CPU evaluation instructions.
+
+For Protenix-v2, NAC ranks first with an average rank of **1.62**, compared with
+**5.75** for pair-ipTM. Rankings average eight evaluation endpoints within each
+predictor. The [complete results](data/her2/reference/all.md) include all metrics
+and all three predictors.
+
 ## From sequences to scores
 
 The [prediction guide](docs/prediction.md) describes local MMseqs2-GPU MSA search,

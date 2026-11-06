@@ -10,7 +10,7 @@ from typing import Any
 import numpy as np
 
 
-BENCHMARKS = {"yeast_display", "igdesign", "literature"}
+BENCHMARKS = {"yeast_display", "igdesign", "literature", "absci_her2"}
 
 
 @dataclass(frozen=True)

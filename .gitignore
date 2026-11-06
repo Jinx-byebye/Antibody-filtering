@@ -35,3 +35,5 @@ resources.json
 !/data/antibody_binding_datasets/**
 !/data/antibody_scores/
 !/data/antibody_scores/**
+!/data/her2/
+!/data/her2/**
